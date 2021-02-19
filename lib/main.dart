@@ -1,4 +1,8 @@
+import 'package:flutter/animation.dart';
+
+import './transaction.dart';
 import 'package:flutter/material.dart';
+import './transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +24,20 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  final List<Transaction> transactions = [
+    Transaction(id: 'T1',
+      title: 'new shoes',
+      amount: 69.99,
+      date: DateTime.now()
+    ),
+    Transaction(id: 'T2',
+        title: 'new coffee mug',
+        amount: 29.99,
+        date: DateTime.now()
+    )
+  ];
+
+
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -29,6 +47,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+
 
   void _incrementCounter() {
     setState(() {
@@ -50,16 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                   width: double.infinity,
                   height: 50,
-                  child: Text('Chart')),
+                  child: Center(child: Text('Injuries'))),
               color: Colors.deepPurpleAccent,
               elevation: 15,
             ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              child: Card(
-                child: Text('List of Text'),
-              ),
+            Column(children: transactions.map((){
+              return Card(child: Text(tx.title),);
+            }).toList(),
             ),
           ],
         ),
